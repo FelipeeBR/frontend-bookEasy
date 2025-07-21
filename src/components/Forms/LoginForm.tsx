@@ -2,6 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { fetchUser } from "../../store/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from "../../store";
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
   email: string
@@ -18,10 +19,12 @@ const LoginForm = () => {
 
     const { loading, error } = useSelector((state: any) => state.auth);
 
+    const navigate = useNavigate();
+
     const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
         const res = await dispatch(fetchUser(data));
         if(res.meta.requestStatus === 'fulfilled') {
-            console.log(res.payload);
+            navigate('/home');
         }else{
             console.log(res.payload);
         }

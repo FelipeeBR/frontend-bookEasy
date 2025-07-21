@@ -8,7 +8,7 @@ const user = JSON.parse(localStorage.getItem('token') || '{}');
 
 const initialState = {
     user: user ? user : null,
-    token: user?.token || null,
+    token: user?.token?.accessToken || null,
     error: false,
     success: false,
     loading: false,
@@ -56,7 +56,8 @@ const authSlice = createSlice({
             })
             .addCase(fetchUser.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload;
+                state.user = action.payload.user;
+                state.token = action.payload.token.accessToken;
             })
             .addCase(fetchUser.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;

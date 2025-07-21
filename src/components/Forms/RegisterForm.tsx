@@ -75,7 +75,7 @@ const RegisterForm = () => {
 
                                 <div className="flex justify-between">
                                     <a className="link link-hover">Esqueceu sua senha?</a>
-                                    <a href="/register">Crie sua conta</a>
+                                    <a href="/login">Faça login</a>
                                 </div>
                             </fieldset>
                         </form>
