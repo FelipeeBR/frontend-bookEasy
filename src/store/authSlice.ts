@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 
-//const api_url = `${import.meta.env.REACT_APP_API_URL}/api/auth`;
-const api_url = "http://localhost:4000/api/auth";
+const api_url = `${import.meta.env.VITE_API_URL}/api/auth`;
+
 const user = JSON.parse(localStorage.getItem('token') || '{}');
 
 const initialState = {

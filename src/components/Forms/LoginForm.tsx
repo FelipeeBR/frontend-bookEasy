@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { fetchUser } from "../../store/authSlice";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from "../../store";
 
 type Inputs = {
@@ -16,12 +16,14 @@ const LoginForm = () => {
     } = useForm<Inputs>();
     const dispatch = useDispatch<AppDispatch>();
 
+    const { loading, error } = useSelector((state: any) => state.auth);
+
     const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
         const res = await dispatch(fetchUser(data));
         if(res.meta.requestStatus === 'fulfilled') {
-            console.log(res);
+            console.log(res.payload);
         }else{
-            console.log(res);
+            console.log(res.payload);
         }
     }
     return (
@@ -43,7 +45,8 @@ const LoginForm = () => {
                                 <label className="label">Senha</label>
                                 <input type="password" className="input" placeholder="Senha" {...register("password", { required: true })} />
                                 {errors.password && <span className="text-red-600">Este campo é obrigatório</span>}
-                                <button className="btn btn-neutral mt-4">Login</button>
+                                <button className="btn btn-neutral mt-4" disabled={loading}>{loading ? 'Carregando...' : 'Login'}</button>
+                                {error && <span className="text-red-600">{error}</span>}
                                 <div className="flex justify-between">
                                     <a className="link link-hover">Esqueceu sua senha?</a>
                                     <a href="/register">Crie sua conta</a>
