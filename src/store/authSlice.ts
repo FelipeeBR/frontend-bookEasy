@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+//import axios, { AxiosError } from 'axios';
+import api from '../auth/api';
 
 const api_url = `${import.meta.env.VITE_API_URL}/api/auth`;
 
@@ -15,10 +16,15 @@ const initialState = {
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (credentials, {rejectWithValue}) => {
     try {
-        const response = await axios.post(api_url, credentials);
-        localStorage.setItem('token', JSON.stringify(response.data.token.accessToken));
+        const response = await api.post(api_url, credentials);
+        localStorage.setItem('token', JSON.stringify(
+            {
+                accessToken: response.data.token.accessToken,
+                refreshToken: response.data.token.refreshToken
+            }
+        ));
         return response.data;
-    } catch (error: AxiosError | any) {
+    } catch (error: any) {
         return rejectWithValue(error.response.data);
     }   
 });
@@ -36,7 +42,11 @@ const authSlice = createSlice({
                 state.user = null;
                 state.token = null;
             }
-        }
+        },
+        setToken: (state, action: PayloadAction<any>) => {
+            state.token = action.payload.accessToken;
+            state.user.refreshToken = action.payload.refreshToken;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -55,4 +65,5 @@ const authSlice = createSlice({
     },
 });
 
+export const { checkToken, setToken } = authSlice.actions;
 export default authSlice.reducer;
