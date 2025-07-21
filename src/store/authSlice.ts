@@ -16,7 +16,6 @@ const initialState = {
 export const fetchUser = createAsyncThunk('user/fetchUser', async (credentials, {rejectWithValue}) => {
     try {
         const response = await axios.post(api_url, credentials);
-        console.log(response);
         localStorage.setItem('token', JSON.stringify(response.data.token.accessToken));
         return response.data;
     } catch (error: AxiosError | any) {
@@ -25,7 +24,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (credentials, 
 });
 
 const authSlice = createSlice({
-    name: 'user',
+    name: 'auth',
     initialState,
     reducers: {
         checkToken: (state) => {
