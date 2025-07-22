@@ -29,6 +29,16 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (credentials, 
     }   
 });
 
+export const logout = createAsyncThunk('user/logout', async () => {
+    try {
+        const refreshToken = JSON.parse(localStorage.getItem('token') || '{}').refreshToken;
+        await api.post(`${api_url}/logout`, { refreshToken });
+        localStorage.removeItem('token');
+    } catch (error) {
+        return error;
+    }
+});
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -62,6 +72,13 @@ const authSlice = createSlice({
             .addCase(fetchUser.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.error = action.payload.error || "Failed to login";
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.user = null;
+                state.token = null;
+            })
+            .addCase(logout.rejected, (state, action: PayloadAction<any>) => {
+                state.error = action.payload.error || "Failed to logout";
             });
     },
 });

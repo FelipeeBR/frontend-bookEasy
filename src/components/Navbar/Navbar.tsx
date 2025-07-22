@@ -1,6 +1,24 @@
 import { FaCircleUser } from "react-icons/fa6";
+import type { AppDispatch } from "../../store";
+import { useDispatch } from 'react-redux';
+import { logout } from "../../store/authSlice";
 
 const Navbar = () => {
+    const dispatch = useDispatch<AppDispatch>();
+
+    const onSubmit = async () => {
+        try {
+            const result = await dispatch(logout());
+            if(logout.fulfilled.match(result)) {
+                console.log('Logout successful');
+            } else {
+                console.error('Logout failed:', result.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="navbar bg-blue-500 shadow-sm">
             <div className="flex-1">
@@ -15,7 +33,7 @@ const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                         <li><a className="justify-between" href="/profile">Perfil</a></li>
-                        <li><a>Sair</a></li>
+                        <li onClick={onSubmit}>Sair</li>
                     </ul>
                 </div>
             </div>

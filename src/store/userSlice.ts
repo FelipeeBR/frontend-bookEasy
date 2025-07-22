@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import axios, { AxiosError } from 'axios';
 
 const api_url = `${import.meta.env.VITE_API_URL}/api`;
+const user = JSON.parse(localStorage.getItem('token') || '{}');
 
 export const createUser = createAsyncThunk('user/createUser', async (data, {rejectWithValue}) => {
     try {
@@ -11,6 +12,20 @@ export const createUser = createAsyncThunk('user/createUser', async (data, {reje
         return rejectWithValue(error.response.data);
     }
 });
+
+export const getUser = createAsyncThunk("user/getUser", async () => {
+    try {
+        const response = await axios.get(`${api_url}/user`, {
+            headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return error;
+    }
+    
+})
 
 const userSlice = createSlice({
     name: 'user',
@@ -33,6 +48,18 @@ const userSlice = createSlice({
             .addCase(createUser.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.error = action.payload.error || "Error creating user";
+            })
+            .addCase(getUser.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(getUser.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error getting user";
             });
     },
 });

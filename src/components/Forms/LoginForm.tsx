@@ -10,11 +10,7 @@ type Inputs = {
 }
 
 const LoginForm = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<Inputs>();
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const dispatch = useDispatch<AppDispatch>();
 
     const { loading, error } = useSelector((state: any) => state.auth);
