@@ -56,7 +56,7 @@ const HomePage = () => {
                 <p>{service.description}</p>
                 <p className="text-xl text-green-500">R$ {service.price}</p>
                 <div className="justify-end card-actions">
-                  <button className="btn btn-success">Mais Informações</button>
+                  <a className="btn btn-success" href={`/service/${service.id}`}>Mais Informações</a>
                 </div>
               </div>
             </div>

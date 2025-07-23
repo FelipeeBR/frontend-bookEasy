@@ -9,6 +9,7 @@ import ServicePage from './pages/ServicePage/ServicePage';
 import EmployeePage from './pages/EmployeePage/EmployeePage';
 import MyServicePage from './pages/MyServicePage/MyServicePage';
 import ServiceTimePage from './pages/ServiceTimePage/ServiceTimePage';
+import ServiceDetailsPage from './pages/ServiceDetailsPage/ServiceDetailsPage';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/create-employee" element={<Auth><EmployeePage/></Auth>} />
         <Route path="/my-services" element={<Auth><MyServicePage/></Auth>} />
         <Route path={"/service-time/:id"} element={<Auth><ServiceTimePage/></Auth>} />
+        <Route path="/service/:id" element={<Auth><ServiceDetailsPage/></Auth>} />
       </Routes>
     </>
   )

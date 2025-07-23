@@ -70,7 +70,20 @@ export const deleteTime = createAsyncThunk('service/deleteTime', async (id, {rej
     } catch (error: AxiosError | any) {
         return rejectWithValue(error.response.data);
     }
-})
+});
+
+export const getServiceId = createAsyncThunk("service/getServiceId", async (id) => {
+    try {
+        const response = await axios.get(`${api_url}/service/${id}`, {
+            headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return error;
+    }  
+});
 
 const serviceSlice = createSlice({
     name: 'service',
@@ -141,6 +154,18 @@ const serviceSlice = createSlice({
             .addCase(deleteTime.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.error = action.payload.error || "Error deleting service time";
+            })
+            .addCase(getServiceId.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getServiceId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.services = action.payload;
+            })
+            .addCase(getServiceId.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error getting service";
             });
     },
 });

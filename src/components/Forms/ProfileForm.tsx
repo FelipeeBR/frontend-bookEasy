@@ -68,6 +68,8 @@ const ProfileForm = () => {
 
                     <div>
                         {user?.user.role === 'CLIENT' && <span>Conta Cliente</span>}
+                        {user?.user.role === 'ADMIN' && <span>Conta Administrador</span>}
+                        {user?.user.role === 'EMPLOYEE' && <span>Conta Funcionario</span>}
                     </div>
 
                     <div className="card-actions justify-end">

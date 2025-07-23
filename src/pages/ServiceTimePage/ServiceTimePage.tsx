@@ -14,7 +14,6 @@ const ServiceTimePage = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     const { id } = useParams();
-    console.log(id);
 
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         const res = await dispatch(createServiceTime(data));
