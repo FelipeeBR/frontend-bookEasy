@@ -21,29 +21,33 @@ const ServicePage = () => {
             <div className="hero max-w-1/2 m-auto">
                 <div>
                     <h3 className="text-3xl flex items-center justify-center mb-3">Adicionar novo serviço</h3>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <fieldset className="fieldset">
-                            <label className="label">Nome</label>
-                            <input type="text" placeholder="Nome" className="input input-bordered" {...register("name", { required: true })}/>
-                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
-                        </fieldset>
-                        <fieldset className="fieldset">
-                            <label className="label">Duração (Horas)</label>
-                            <input type="number" placeholder="Duração" className="input input-bordered" {...register("duration", { required: true })}/>
-                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
-                        </fieldset>
-                        <fieldset className="fieldset">
-                            <label className="label">Preço</label>
-                            <input type="text" placeholder="Preço" className="input input-bordered" {...register("price", { required: true })}/>
-                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
-                        </fieldset>
-                        <fieldset className="fieldset">
-                            <label className="label">Descrição</label>
-                            <input type="text" placeholder="Descrição" className="input input-bordered" {...register("description", { required: true })}/>
-                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
-                        </fieldset>
-                        <button type="submit" className="btn btn-success">Adicionar</button>
-                    </form>
+                    <div className="card bg-base-100 w-96 shadow-sm">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="card-body">
+                                <fieldset className="fieldset">
+                                    <label className="label">Nome</label>
+                                    <input type="text" placeholder="Nome" className="input input-bordered" {...register("name", { required: true })}/>
+                                    {errors.name && <span className="text-red-500">Campo obrigatório</span>}
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="label">Duração (Horas)</label>
+                                    <input type="number" placeholder="Duração" className="input input-bordered" {...register("duration", { required: true })}/>
+                                    {errors.name && <span className="text-red-500">Campo obrigatório</span>}
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="label">Preço</label>
+                                    <input type="text" placeholder="Preço" className="input input-bordered" {...register("price", { required: true })}/>
+                                    {errors.name && <span className="text-red-500">Campo obrigatório</span>}
+                                </fieldset>
+                                <fieldset className="fieldset">
+                                    <label className="label">Descrição</label>
+                                    <input type="text" placeholder="Descrição" className="input input-bordered" {...register("description", { required: true })}/>
+                                    {errors.name && <span className="text-red-500">Campo obrigatório</span>}
+                                </fieldset>
+                                <button type="submit" className="btn btn-success">Adicionar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
     </div>

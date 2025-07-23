@@ -38,8 +38,10 @@ const Navbar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a className="justify-between" href="/profile">Perfil</a></li>
-                        <li onClick={onSubmit}>Sair</li>
+                        <li>
+                            <a className="justify-between" href="/profile">Perfil</a>
+                        </li>
+                        <li className="justify-between" onClick={onSubmit}><p>Sair</p></li>
                     </ul>
                 </div>
             </div>

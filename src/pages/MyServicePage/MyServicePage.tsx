@@ -19,24 +19,23 @@ const MyServicePage = () => {
     return (
         <div>
             <Navbar/>
-            <div className="hero max-w-1/2 m-auto">
+            <div className="flex flex-col items-center justify-center">
                 <div className="text-center lg:text-left">
-                    <h1 className="text-xl font-bold">Meus Serviços</h1>
+                    <h1 className="text-3xl flex items-center justify-center mb-3">Meus Serviços</h1>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-3">
                     {Array.isArray(services.services) &&
                         services.services.map((service: any) => (
-                        <div
-                            key={service.id}
-                            className="w-full max-w-md bg-white rounded-2xl shadow-md p-6 transition-transform hover:scale-105 hover:shadow-lg"
-                        >
-                            <h2 className="text-xl font-semibold mb-2 text-gray-800">{service.name}</h2>
-                            <p className="text-gray-600">{service.description}</p>
-                            <div className="justify-end card-actions">
-                                <button className="btn btn-success">Adicionar horário</button>
+                        <div key={service.id} className="card w-96 bg-base-100 card-lg shadow-sm">
+                            <div className="card-body">
+                                <h2 className="card-title">{service.name}</h2>
+                                <p className="text-gray-600">{service.description}</p>
+                                <div className="justify-end card-actions">
+                                    <button className="btn btn-success">Adicionar horário</button>
+                                </div>
                             </div>
                         </div>
-                        ))}
+                    ))}
                 </div>
             </div>
         </div>
