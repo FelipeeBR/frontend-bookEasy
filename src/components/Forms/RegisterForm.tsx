@@ -9,7 +9,7 @@ type Inputs = {
     email: string
     password: string
     phone: string
-    type: string
+    role: string
 }
 
 const RegisterForm = () => {
@@ -54,7 +54,7 @@ const RegisterForm = () => {
                                 {errors.name && <span className="text-red-600">Este campo é obrigatório</span>}
 
                                 <label className="label">Tipo de Conta</label>
-                                <select id="" {...register("type", { required: true })} className="input">
+                                <select id="" {...register("role", { required: true })} className="input">
                                     <option value="CLIENT">Cliente</option>
                                     <option value="EMPLOYEE">Profissional</option>
                                 </select>

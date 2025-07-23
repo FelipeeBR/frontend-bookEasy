@@ -24,16 +24,16 @@ const ServicePage = () => {
                             <input type="text" placeholder="Nome" className="input input-bordered" {...register("name", { required: true })}/>
                         </fieldset>
                         <fieldset className="fieldset">
-                            <label className="label">Duração</label>
+                            <label className="label">Duração (Horas)</label>
                             <input type="number" placeholder="Duração" className="input input-bordered" {...register("duration", { required: true })}/>
                         </fieldset>
                         <fieldset className="fieldset">
                             <label className="label">Preço</label>
-                            <input type="text" placeholder="Senha" className="input input-bordered" {...register("price", { required: true })}/>
+                            <input type="text" placeholder="Preço" className="input input-bordered" {...register("price", { required: true })}/>
                         </fieldset>
                         <fieldset className="fieldset">
                             <label className="label">Descrição</label>
-                            <input type="text" placeholder="Senha" className="input input-bordered" {...register("description", { required: true })}/>
+                            <input type="text" placeholder="Descrição" className="input input-bordered" {...register("description", { required: true })}/>
                         </fieldset>
                         <button type="submit" className="btn btn-success">Adicionar</button>
                     </form>

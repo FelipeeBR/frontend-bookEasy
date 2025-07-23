@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
 import UserPage from './pages/UserPage/UserPage';
+import ServicePage from './pages/ServicePage/ServicePage';
+import EmployeePage from './pages/EmployeePage/EmployeePage';
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
         <Route path='/login' element={<LoginPage/>} />
         <Route path="/home" element={<Auth><HomePage/></Auth>} />
         <Route path="/profile" element={<Auth><UserPage/></Auth>} />
+        <Route path="create-service" element={<Auth><ServicePage/></Auth>} />
+        <Route path="/create-employee" element={<Auth><EmployeePage/></Auth>} />
       </Routes>
     </>
   )
