@@ -9,7 +9,10 @@ const ServicePage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<any>();
 
     const onSubmit: SubmitHandler<any> = async (data: any) => {
-        console.log(data);
+        const res = await dispatch(createService(data));
+        if(res.meta.requestStatus === 'fulfilled') {
+            console.log(res.payload);
+        }
     }
 
     return (
@@ -22,18 +25,22 @@ const ServicePage = () => {
                         <fieldset className="fieldset">
                             <label className="label">Nome</label>
                             <input type="text" placeholder="Nome" className="input input-bordered" {...register("name", { required: true })}/>
+                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
                         </fieldset>
                         <fieldset className="fieldset">
                             <label className="label">Duração (Horas)</label>
                             <input type="number" placeholder="Duração" className="input input-bordered" {...register("duration", { required: true })}/>
+                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
                         </fieldset>
                         <fieldset className="fieldset">
                             <label className="label">Preço</label>
                             <input type="text" placeholder="Preço" className="input input-bordered" {...register("price", { required: true })}/>
+                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
                         </fieldset>
                         <fieldset className="fieldset">
                             <label className="label">Descrição</label>
                             <input type="text" placeholder="Descrição" className="input input-bordered" {...register("description", { required: true })}/>
+                            {errors.name && <span className="text-red-500">Campo obrigatório</span>}
                         </fieldset>
                         <button type="submit" className="btn btn-success">Adicionar</button>
                     </form>

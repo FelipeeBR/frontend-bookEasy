@@ -6,14 +6,19 @@ const user = JSON.parse(localStorage.getItem('token') || '{}');
 
 export const createService = createAsyncThunk('service/createService', async (data, {rejectWithValue}) => {
     try {
-        const response = await axios.post(`${api_url}/service`, data);
+        const response = await axios.post(`${api_url}/service`, data, {
+                headers: {
+                    Authorization: `Bearer ${user.accessToken}`,
+                },
+            }
+        );
         return response.data;
     } catch (error: AxiosError | any) {
         return rejectWithValue(error.response.data);
     }
 });
 
-export const getServices = createAsyncThunk("service/getService", async () => {
+export const getServices = createAsyncThunk("service/getServices", async () => {
     try {
         const response = await axios.get(`${api_url}/services`, {
             headers: {
@@ -25,6 +30,19 @@ export const getServices = createAsyncThunk("service/getService", async () => {
         return error;
     }
 });
+
+export const getService = createAsyncThunk("service/getService", async () => {
+    try {
+        const response = await axios.get(`${api_url}/service`, {
+            headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return error;
+    }  
+})
 
 const serviceSlice = createSlice({
     name: 'service',

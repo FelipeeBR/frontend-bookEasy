@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage/HomePage';
 import UserPage from './pages/UserPage/UserPage';
 import ServicePage from './pages/ServicePage/ServicePage';
 import EmployeePage from './pages/EmployeePage/EmployeePage';
+import MyServicePage from './pages/MyServicePage/MyServicePage';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/profile" element={<Auth><UserPage/></Auth>} />
         <Route path="create-service" element={<Auth><ServicePage/></Auth>} />
         <Route path="/create-employee" element={<Auth><EmployeePage/></Auth>} />
+        <Route path="/my-services" element={<Auth><MyServicePage/></Auth>} />
       </Routes>
     </>
   )
