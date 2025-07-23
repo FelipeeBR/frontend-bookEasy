@@ -56,6 +56,20 @@ export const createServiceTime = createAsyncThunk('service/createServiceTime', a
     } catch (error: AxiosError | any) {
         return rejectWithValue(error.response.data);
     }
+});
+
+export const deleteTime = createAsyncThunk('service/deleteTime', async (id, {rejectWithValue}) => {
+    try {
+        const response = await axios.delete(`${api_url}/time/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${user.accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return rejectWithValue(error.response.data);
+    }
 })
 
 const serviceSlice = createSlice({
@@ -103,6 +117,30 @@ const serviceSlice = createSlice({
             .addCase(getService.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.error = action.payload.error || "Error getting service";
+            })
+            .addCase(createServiceTime.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(createServiceTime.fulfilled, (state, action) => {
+                state.loading = false;
+                state.services = action.payload;
+            })
+            .addCase(createServiceTime.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error creating service time";
+            })
+            .addCase(deleteTime.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(deleteTime.fulfilled, (state, action) => {
+                state.loading = false;
+                state.services = action.payload;
+            })
+            .addCase(deleteTime.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error deleting service time";
             });
     },
 });

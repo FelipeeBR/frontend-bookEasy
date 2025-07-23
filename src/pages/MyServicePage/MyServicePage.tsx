@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar/Navbar";
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from "../../store";
-import { getService } from "../../store/serviceSlice";
+import { getService, deleteTime } from "../../store/serviceSlice";
 import { useEffect, useState } from "react";
 import {format} from "date-fns";
 import { type SubmitHandler } from "react-hook-form";
@@ -19,7 +19,11 @@ const MyServicePage = () => {
     },[dispatch]);
 
     const onSubmit: SubmitHandler<any> = async (data: any) => {
-        console.log(data);
+        const res = await dispatch(deleteTime(data.timeId));
+        if(res.meta.requestStatus === 'fulfilled') {
+            const service = await dispatch(getService());
+            setServices(service.payload);
+        }
     }
 
     return (
