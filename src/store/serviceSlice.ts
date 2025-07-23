@@ -42,6 +42,20 @@ export const getService = createAsyncThunk("service/getService", async () => {
     } catch (error: AxiosError | any) {
         return error;
     }  
+});
+
+export const createServiceTime = createAsyncThunk('service/createServiceTime', async (data, {rejectWithValue}) => {
+    try {
+        const response = await axios.post(`${api_url}/service/time`, data, {
+                headers: {
+                    Authorization: `Bearer ${user.accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return rejectWithValue(error.response.data);
+    }
 })
 
 const serviceSlice = createSlice({
@@ -77,6 +91,18 @@ const serviceSlice = createSlice({
             .addCase(getServices.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.error = action.payload.error || "Error getting services";
+            })
+            .addCase(getService.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getService.fulfilled, (state, action) => {
+                state.loading = false;
+                state.services = action.payload;
+            })
+            .addCase(getService.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error getting service";
             });
     },
 });

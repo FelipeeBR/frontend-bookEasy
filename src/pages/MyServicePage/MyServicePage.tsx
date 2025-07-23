@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import type { AppDispatch } from "../../store";
 import { getService } from "../../store/serviceSlice";
 import { useEffect, useState } from "react";
+import {format} from "date-fns";
+import { type SubmitHandler } from "react-hook-form";
 
 const MyServicePage = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,6 +17,10 @@ const MyServicePage = () => {
         }
         service();
     },[dispatch]);
+
+    const onSubmit: SubmitHandler<any> = async (data: any) => {
+        console.log(data);
+    }
 
     return (
         <div>
@@ -29,9 +35,20 @@ const MyServicePage = () => {
                         <div key={service.id} className="card w-96 bg-base-100 card-lg shadow-sm">
                             <div className="card-body">
                                 <h2 className="card-title">{service.name}</h2>
+                                <h4>Duração: {service.duration} horas</h4>
                                 <p className="text-gray-600">{service.description}</p>
+                                <div className="flex flex-col overflow-auto max-h-52 gap-2">
+                                    {
+                                        Array.isArray(service.time) && service.time.map((time: any) => (
+                                            <div className="flex flex-row card w-80 bg-base-200 card-lg shadow-sm gap-2 p-2">
+                                                <p key={time.id}>{format(time.startTime, 'dd/MM/yyyy HH:mm')}</p>
+                                                <button onClick={()=> {onSubmit({timeId: time.id})}} className="btn btn-error">Excluir</button>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
                                 <div className="justify-end card-actions">
-                                    <button className="btn btn-success">Adicionar horário</button>
+                                    <a className="btn btn-success" href={`/service-time/${service.id}`}>Adicionar horário</a>
                                 </div>
                             </div>
                         </div>
