@@ -1,5 +1,7 @@
 # Front-End Book Easy
 
+Acesse o Back-End da Aplicação: https://github.com/FelipeeBR/backend-bookEasy
+
 ## Tecnologias Utilizadas
 - Redux @reduxjs/toolkit
 - React Hook Form
