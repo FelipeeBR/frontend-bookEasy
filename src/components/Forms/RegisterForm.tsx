@@ -3,6 +3,8 @@ import { createUser } from '../../store/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from "../../store";
 import { useState } from "react";
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
     name: string
@@ -19,6 +21,8 @@ const RegisterForm = () => {
         formState: { errors },
     } = useForm<Inputs>();
     const dispatch = useDispatch<AppDispatch>();
+
+    const navigate = useNavigate();
     
     const { loading, error } = useSelector((state: any) => state.auth);
 
@@ -27,9 +31,11 @@ const RegisterForm = () => {
     const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
         const res = await dispatch(createUser(data));
         if(res.meta.requestStatus === 'fulfilled') {
-            console.log(res.payload);
+            toast.success('Cadastro realizado com sucesso!');
+            navigate('/login');
         }else{
             setRegisterError(res.payload.error);
+            toast.error(res.payload.error);
         }
     }
     return (

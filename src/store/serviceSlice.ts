@@ -18,18 +18,23 @@ export const createService = createAsyncThunk('service/createService', async (da
     }
 });
 
-export const getServices = createAsyncThunk("service/getServices", async () => {
+export const getServices = createAsyncThunk(
+  "service/getServices",
+  async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`${api_url}/services`, {
-            headers: {
-                Authorization: `Bearer ${user.accessToken}`,
-            },
-        });
-        return response.data;
+      const response = await axios.get(`${api_url}/services`, {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      });
+      return response.data;
     } catch (error: AxiosError | any) {
-        return error;
+      const message =
+        error.response?.data?.message || error.message || "Erro desconhecido";
+      return rejectWithValue(message);
     }
-});
+  }
+);
 
 export const getService = createAsyncThunk("service/getService", async () => {
     try {

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import type { AppDispatch } from "../../store";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { createCustomer } from "../../store/userSlice";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type Customer = {
     cpf: string;
@@ -13,10 +15,15 @@ const CustomerPage = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { register, handleSubmit, formState: { errors } } = useForm<Customer>();
 
+    const navigate = useNavigate();
+
     const onSubmit: SubmitHandler<Customer> = async (data: any) => {
         const res = await dispatch(createCustomer(data));
         if(res.meta.requestStatus === 'fulfilled') {
-            console.log(res.payload);
+            navigate('/home');
+            toast.success('Cadastro realizado!');
+        } else {
+            toast.error(res.payload.error);
         }
     }
     return (

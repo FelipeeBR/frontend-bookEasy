@@ -12,6 +12,8 @@ import ServiceTimePage from './pages/ServiceTimePage/ServiceTimePage';
 import ServiceDetailsPage from './pages/ServiceDetailsPage/ServiceDetailsPage';
 import CustomerPage from './pages/CustomerPage/CustomerPage';
 
+import { ToastContainer } from 'react-toastify';
+
 function App() {
 
   return (
@@ -29,6 +31,7 @@ function App() {
         <Route path="/service/:id" element={<Auth><ServiceDetailsPage/></Auth>} />
         <Route path="/create-client" element={<Auth><CustomerPage/></Auth>} />
       </Routes>
+      <ToastContainer />
     </>
   )
 }

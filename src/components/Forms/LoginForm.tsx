@@ -3,6 +3,7 @@ import { fetchUser } from "../../store/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from "../../store";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type Inputs = {
   email: string
@@ -22,7 +23,7 @@ const LoginForm = () => {
         if(res.meta.requestStatus === 'fulfilled') {
             navigate('/home');
         }else{
-            console.log(res.payload);
+            toast.error(res.payload.error);
         }
     }
     return (
