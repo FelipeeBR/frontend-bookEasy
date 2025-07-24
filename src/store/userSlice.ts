@@ -25,6 +25,33 @@ export const getUser = createAsyncThunk("user/getUser", async () => {
         return error;
     }
     
+});
+
+export const getCustomer = createAsyncThunk("user/getCustomer", async () => {
+    try {
+        const response = await axios.get(`${api_url}/customer`, {
+            headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+            },
+        });
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return error;
+    }
+});
+
+export const createCustomer = createAsyncThunk('user/createCustomer', async (data, {rejectWithValue}) => {
+    try {
+        const response = await axios.post(`${api_url}/customer`, data, {
+                headers: {
+                    Authorization: `Bearer ${user.accessToken}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error: AxiosError | any) {
+        return rejectWithValue(error.response.data);
+    }
 })
 
 const userSlice = createSlice({
@@ -60,6 +87,30 @@ const userSlice = createSlice({
             .addCase(getUser.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.error = action.payload.error || "Error getting user";
+            })
+            .addCase(createCustomer.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(createCustomer.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(createCustomer.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error creating customer";
+            })
+            .addCase(getCustomer.pending, (state) => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(getCustomer.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(getCustomer.rejected, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.error = action.payload.error || "Error getting customer";
             });
     },
 });
